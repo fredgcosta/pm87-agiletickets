@@ -80,8 +80,7 @@ public class EspetaculosController {
 		Espetaculo espetaculo = carregaEspetaculo(espetaculoId);
 
 		// cria sessoes baseado no periodo de inicio e fim passados pelo usuario
-		List<Sessao> sessoes = espetaculo.criaSessoes(inicio, fim, horario,
-				periodicidade);
+		List<Sessao> sessoes = espetaculo.criaSessoes(inicio, fim, horario, periodicidade);
 
 		agenda.agende(sessoes);
 

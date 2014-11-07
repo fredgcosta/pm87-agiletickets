@@ -1,8 +1,14 @@
 package br.com.caelum.agiletickets.models;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 import org.junit.Test;
 
 public class EspetaculoTest {
@@ -71,6 +77,36 @@ public class EspetaculoTest {
 		ivete.getSessoes().add(sessaoComIngressosSobrando(2));
 
 		assertFalse(ivete.vagas(5, 3));
+	}
+
+	@Test
+	public void DeveCriar30SessoesPeriodicidadeDiariaEm30Dias() {
+		Espetaculo espetaculo = new Espetaculo();
+		LocalDate inicio = new LocalDate(2014, 1, 1);
+		LocalDate fim = new LocalDate(2014, 1, 30);
+		LocalTime horario = new LocalTime(20, 30);
+		Periodicidade periodicidade = Periodicidade.DIARIA;
+		List<Sessao> sessoes = new ArrayList<Sessao>(30);
+
+		sessoes = espetaculo.criaSessoes(inicio, fim, horario, periodicidade);
+		
+		assertEquals(30, sessoes.size());
+
+	}
+	
+	@Test
+	public void DeveCriar5SessoesPeriodicidadeSemanalEm30Dias() {
+		Espetaculo espetaculo = new Espetaculo();
+		LocalDate inicio = new LocalDate(2014, 1, 1);
+		LocalDate fim = new LocalDate(2014, 1, 30);
+		LocalTime horario = new LocalTime(20, 30);
+		Periodicidade periodicidade = Periodicidade.SEMANAL;
+		List<Sessao> sessoes = new ArrayList<Sessao>(5);
+
+		sessoes = espetaculo.criaSessoes(inicio, fim, horario, periodicidade);
+		
+		assertEquals(5, sessoes.size());
+
 	}
 
 	private Sessao sessaoComIngressosSobrando(int quantidade) {
